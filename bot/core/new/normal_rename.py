@@ -86,8 +86,7 @@ class NormalRename(Scaffold):
                 if has_db_thumb or (not upload_as_doc):
                     if (not width) or (not height):
                         height, width = await get_thumbnail_info(thumb)
-                    resize_thumb = kwargs.get("resize_thumb", False)
-                    if resize_thumb:
+                    if resize_thumb := kwargs.get("resize_thumb", False):
                         thumb = await fix_thumbnail(thumb, height)
                     _thumb = await self.save_file(thumb)
                     await rm_file(thumb)
@@ -127,8 +126,8 @@ class NormalRename(Scaffold):
                     duration = kwargs.get("duration", 0)
                     if not duration:
                         duration = await get_audio_info(dl_file_path)
-                    performer = kwargs.get("performer", None)
-                    title = kwargs.get("title", None)
+                    performer = kwargs.get("performer")
+                    title = kwargs.get("title")
 
                     media = raw.types.InputMediaUploadedDocument(
                         mime_type=self.guess_mime_type(dl_file_path) or "audio/mpeg",
